@@ -1,0 +1,9 @@
+.day{
+  width:calc(100% /7);
+  float:left;
+  border:1px solid #CCC;
+  padding:5px;
+}
+.currentMonthDay{
+  font-weight: bold;
+}

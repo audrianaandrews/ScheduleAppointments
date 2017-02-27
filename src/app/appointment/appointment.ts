@@ -1,0 +1,18 @@
+export class Appointment {
+	public year: number;
+	public month: string;
+	public dayNumber: number;
+	public name: string;
+	public time: string;
+	public ampm: string;
+	public months: Array<string> = ["January","February","March","April","May", "June","July","August","September","October","November", "December"];
+
+	constructor(day: Date, name, time, ampm) {
+		this.year = day.getFullYear();
+    this.month = this.months[day.getMonth()];
+		this.dayNumber = day.getDate();
+    this.name = name;
+		this.time = time;
+		this.ampm = ampm;
+	}
+}

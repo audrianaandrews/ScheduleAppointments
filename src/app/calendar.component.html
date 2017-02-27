@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-xs-12 text-center" (click)="changeYear()">
+    <h2>{{year}}</h2>
+  </div>
+</div>
+<div class="row" [hidden]="yearsNotShowing">
+  <div *ngFor="let y of years"  [ngClass]="'text-center col-xs-1'" (click)="getYear(y)">
+    <p>{{y}}</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-1">
+    <button type="button" class="btn btn-default pull-left" (click)="getMonthText(-1)" tabindex="-1">
+      <i class="fa fa-chevron-left "></i>
+    </button>
+  </div>
+  <div class="col-xs-10 text-center"><h1>{{month}}</h1></div>
+  <div class="col-xs-1">
+    <button type="button" class="btn btn-default pull-right" (click)="getMonthText(1)" tabindex="-1">
+      <i class="fa fa-chevron-right"></i>
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 text-center">
+  <div *ngFor="let weekday of weekdays"  [ngClass]="'col-xs-1 text-center day'">
+    <p><b>{{weekday}}</b></p>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-xs-12 text-left">
+  <div *ngFor="let day of days"  [ngClass]="'day'">
+    <p [ngClass]="{'currentMonthDay': day.inCurrentMonth }">{{day.dayNumber}}</p>
+  </div>
+</div>
+</div>
