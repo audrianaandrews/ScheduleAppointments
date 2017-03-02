@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {CalendarComponent} from "./calendar.component";
+import {CalendarComponent} from "./calendar/calendar.component";
 import { AppointmentFormComponent } from './appointment/appointment-form.component';
 import { AppointmentListComponent } from './appointment/appointment-list.component';
+import {AppointmentService} from './appointment/appointment.service';
 
 @Component({
   selector: 'app-root',

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Day } from './day';
-import {Appointment} from './appointment/appointment'
+import {Appointment} from '../appointment/appointment';
+import {Day} from '../day';
 
 @Component({
   selector: 'calendar',
@@ -9,6 +9,7 @@ import {Appointment} from './appointment/appointment'
 })
 export class CalendarComponent implements OnInit{
   @Output() changeMonth = new EventEmitter<number>();
+  public days: Day[];
   public date: Date;
   public currentMonth: number;
   public month: string;
@@ -18,7 +19,6 @@ export class CalendarComponent implements OnInit{
   public months: Array<string> = ["January","February","March","April","May", "June","July","August","September","October","November", "December"];
   public years: Array<number>;
   public yearsNotShowing:boolean;
-  days: Day[];
   constructor() {
 		this.days = [];
 	}

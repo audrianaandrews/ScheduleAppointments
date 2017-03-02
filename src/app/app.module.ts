@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import {CalendarComponent} from "./calendar.component";
+import {CalendarComponent} from "./calendar/calendar.component";
 import {DayComponent} from "./day.component";
 import { AppointmentComponent } from './appointment/appointment.component';
 import { AppointmentService } from './appointment/appointment.service';
