@@ -6,7 +6,9 @@ import {Appointment} from "./appointment";
 export class AppointmentService {
 
   private appointments: Appointment[] = [
-    new Appointment(new Date(), 'Get hair done', '9:00', 'am')
+    new Appointment(new Date(2017,1,28), 'Bills Due', '5:00', 'pm'),
+    new Appointment(new Date(), 'Get hair done', '9:00', 'am'),
+    new Appointment(new Date(2017,3,5), 'Babysit', '4:00', 'pm')
   ];
 
   private appointmentsChangedSource = new BehaviorSubject<Appointment[]>(this.appointments);
@@ -26,6 +28,18 @@ export class AppointmentService {
   deleteAppointment(appointment: Appointment){
     this.appointments.splice(this.appointments.indexOf(appointment), 1);
     this.appointmentsChangedSource.next(this.appointments);
+  }
+
+  getAppointmentsByMonth(year:number, month: string){
+    let thisMonthsApp: Appointment[] = [];
+    for (let a=0; a < this.appointments.length; a++){
+      if(this.appointments[a].year == year){
+        if(this.appointments[a].month == month){
+          thisMonthsApp.push(this.appointments[a]);
+        }
+      }
+    }
+    return thisMonthsApp;
   }
 
 }

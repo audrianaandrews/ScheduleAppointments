@@ -34,8 +34,7 @@ export class AppointmentFormComponent{
     let ampm = (<FormArray>this.appointmentForm.get('ampm')).value;
 
     let dateArray = dateString.split("-");
-    let date = new Date(dateArray[0], dateArray[1], dateArray[2]);
-
+    let date = new Date(dateArray[0], dateArray[1]-1, dateArray[2]);
     this.appointmentService.addAppointment(new Appointment(date, appointmentName, time, ampm));
   }
 }

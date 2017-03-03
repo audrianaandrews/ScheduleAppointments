@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Day } from './day';
+import { Appointment } from '../appointment/appointment';
+import { AppointmentComponent } from '../appointment/appointment.component';
 
 @Component({
   selector: 'day',
@@ -7,9 +9,6 @@ import { Day } from './day';
   styleUrls: ['./day.component.css']
 })
 export class DayComponent {
-  @Input() day: Day[];
-
-  createAppointment(day: Day){
-    console.log(day.dayNumber);
-  }
+  @Input() day: Day;
+  @Input() appointment: Appointment;
 }

@@ -1,1 +1,4 @@
-<p></p>
+
+<p [ngClass]="appointment">{{appointment.name}} on {{appointment.month}} {{appointment.dayNumber}}, {{appointment.year}} at {{appointment.time}}{{appointment.ampm}}
+<button (click)="deleteClicked(appointment)">X</button>
+</p>

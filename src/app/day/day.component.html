@@ -1,0 +1,4 @@
+<div>
+  <p>{{day.dayNumber}}</p>
+  <app-appointment *ngFor="let app of day.appointments" [appointment]="app"></app-appointment>
+</div>

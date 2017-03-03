@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {CalendarComponent} from "./calendar/calendar.component";
-import {DayComponent} from "./day.component";
+import {DayComponent} from "./day/day.component";
 import { AppointmentComponent } from './appointment/appointment.component';
 import { AppointmentService } from './appointment/appointment.service';
 import { AppointmentFormComponent } from './appointment/appointment-form.component';

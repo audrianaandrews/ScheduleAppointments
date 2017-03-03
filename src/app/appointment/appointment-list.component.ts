@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Appointment } from './appointment';
+import { AppointmentComponent } from './appointment.component';
 import { AppointmentService } from './appointment.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Rx';
@@ -10,7 +11,7 @@ import {Observable} from 'rxjs/Rx';
   styleUrls: ['./appointment-list.component.css']
 })
 export class AppointmentListComponent implements OnInit, OnDestroy {
-  appointments: Appointment[] =[];
+  appointments: Appointment[] = [];
 
   subscription:Subscription;
   constructor(private appointmentService: AppointmentService) {
@@ -19,16 +20,11 @@ export class AppointmentListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.appointments = this.appointmentService.getAppointments();
     this.subscription = this.appointmentService.appointmentsChanged$.subscribe(
-      appointments => {this.appointments = appointments;
-      console.log(appointments);}
+      appointments => (this.appointments = appointments)
     );
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  deleteClicked(appointment){
-    this.appointmentService.deleteAppointment(appointment);
   }
 
 }

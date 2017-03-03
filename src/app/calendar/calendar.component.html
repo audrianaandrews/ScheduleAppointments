@@ -30,8 +30,6 @@
 </div>
 <div class="row">
   <div class="col-xs-12 text-left">
-  <div *ngFor="let day of days"  [ngClass]="'day'">
-    <p [ngClass]="{'currentMonthDay': day.inCurrentMonth }">{{day.dayNumber}}</p>
-  </div>
+  <day *ngFor="let day of days"  [ngClass]="{'currentMonthDay': day.inCurrentMonth, 'day':true }" [day]="day"></day>
 </div>
 </div>
