@@ -6,9 +6,9 @@ import {Appointment} from "./appointment";
 export class AppointmentService {
 
   private appointments: Appointment[] = [
-    new Appointment(new Date(2017,1,28), 'Bills Due', '5:00', 'pm'),
-    new Appointment(new Date(), 'Get hair done', '9:00', 'am'),
-    new Appointment(new Date(2017,3,5), 'Babysit', '4:00', 'pm')
+    new Appointment(new Date(2017,1,28), 'Bills Due', '5:00', 'pm', 0),
+    new Appointment(new Date(), 'Get hair done', '9:00', 'am', 1),
+    new Appointment(new Date(2017,3,5), 'Babysit', '4:00', 'pm', 2)
   ];
 
   private appointmentsChangedSource = new BehaviorSubject<Appointment[]>(this.appointments);
@@ -21,12 +21,21 @@ export class AppointmentService {
     this.appointmentsChangedSource.next(this.appointments);
   }
 
+  getAppointment(index){
+    return this.appointments[index];
+  }
+
   getAppointments(){
     return this.appointments;
   }
 
   deleteAppointment(appointment: Appointment){
     this.appointments.splice(this.appointments.indexOf(appointment), 1);
+    this.appointmentsChangedSource.next(this.appointments);
+  }
+
+  editAppointment(appointment: Appointment, index:number){
+    this.appointments[index] = appointment;
     this.appointmentsChangedSource.next(this.appointments);
   }
 

@@ -6,13 +6,17 @@ export class Appointment {
 	public time: string;
 	public ampm: string;
 	public months: Array<string> = ["January","February","March","April","May", "June","July","August","September","October","November", "December"];
+	public index: number;
+	public date: Date;
 
-	constructor(day: Date, name, time, ampm) {
-		this.year = day.getFullYear();
-    this.month = this.months[day.getMonth()];
-		this.dayNumber = day.getDate();
+	constructor(date: Date, name, time, ampm, index) {
+		this.date = date;
+		this.year = date.getFullYear();
+    this.month = this.months[date.getMonth()];
+		this.dayNumber = date.getDate();
     this.name = name;
 		this.time = time;
 		this.ampm = ampm;
+		this.index = index;
 	}
 }

@@ -10,6 +10,7 @@ import { AppointmentComponent } from './appointment/appointment.component';
 import { AppointmentService } from './appointment/appointment.service';
 import { AppointmentFormComponent } from './appointment/appointment-form.component';
 import { AppointmentListComponent } from './appointment/appointment-list.component';
+import {routes} from "./app.routes";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { AppointmentListComponent } from './appointment/appointment-list.compone
     BrowserModule,
     FormsModule,
     HttpModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, routes
   ],
   providers: [AppointmentService],
   bootstrap: [AppComponent]

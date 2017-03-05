@@ -4,6 +4,7 @@ import { AppointmentFormComponent } from './appointment/appointment-form.compone
 import { AppointmentListComponent } from './appointment/appointment-list.component';
 import {AppointmentService} from './appointment/appointment.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

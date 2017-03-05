@@ -1,3 +1,7 @@
 <div class="row">
-  <app-appointment *ngFor="let appointment of appointments" [appointment]="appointment"></app-appointment>
+  <h2>Current Appointments</h2>
+  <app-appointment *ngFor="let appointment of appointments"
+  [appointment]="appointment"
+  [appointmentId]="i"
+  (editAppClicked)="editApp($event, appointment.index)"></app-appointment>
 </div>

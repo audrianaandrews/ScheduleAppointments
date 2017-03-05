@@ -165,8 +165,14 @@ export class CalendarComponent implements OnInit, OnDestroy{
         this.years.push(startYear+x);
       }
   }
-  deleteClicked(appointment){
-    this.appointmentService.deleteAppointment(appointment);
+
+  backToCurrent(){
+    var currentDate = new Date();
+    this.currentMonth = currentDate.getMonth();
+    this.month = this.months[this.currentMonth];
+    this.year = currentDate.getFullYear();
+    this.generateMonth();
+    this.generateYears(this.year);
   }
 
   ngOnInit() {

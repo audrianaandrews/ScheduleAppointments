@@ -1,11 +1,18 @@
 <div class="row">
   <div class="col-xs-12 text-center" (click)="changeYear()">
     <h2>{{year}}</h2>
+    <i class="glyphicon glyphicon-menu-up" [style.display]="yearsNotShowing?'none':'inherit'"></i>
+    <i class="glyphicon glyphicon-menu-down" [style.display]="yearsNotShowing?'inherit':'none'"></i>
   </div>
 </div>
-<div class="row" [hidden]="yearsNotShowing">
+<div class="row" [style.display]="yearsNotShowing?'none':'inherit'">
   <div *ngFor="let y of years"  [ngClass]="'text-center col-xs-1'" (click)="getYear(y)">
-    <p>{{y}}</p>
+    <button type="button" >{{y}}</button>
+  </div>
+</div>
+<div class="row">
+  <div class="text-center col-xs-12">
+    <button type="button" (click)="backToCurrent()">Back to current month</button>
   </div>
 </div>
 <div class="row">
@@ -14,7 +21,9 @@
       <i class="fa fa-chevron-left "></i>
     </button>
   </div>
-  <div class="col-xs-10 text-center"><h1>{{month}}</h1></div>
+  <div class="col-xs-10 text-center">
+    <h1>{{month}}</h1>
+  </div>
   <div class="col-xs-1">
     <button type="button" class="btn btn-default pull-right" (click)="getMonthText(1)" tabindex="-1">
       <i class="fa fa-chevron-right"></i>
@@ -23,7 +32,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12 text-center">
-  <div *ngFor="let weekday of weekdays"  [ngClass]="'col-xs-1 text-center day'">
+  <div *ngFor="let weekday of weekdays"  [ngClass]="'col-xs-1 text-center weekday'">
     <p><b>{{weekday}}</b></p>
   </div>
 </div>

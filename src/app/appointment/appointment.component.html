@@ -1,4 +1,4 @@
-
 <p [ngClass]="appointment">{{appointment.name}} on {{appointment.month}} {{appointment.dayNumber}}, {{appointment.year}} at {{appointment.time}}{{appointment.ampm}}
+<button (click)="editClicked($event)"><i class="glyphicon glyphicon-pencil"></i></button>
 <button (click)="deleteClicked(appointment)">X</button>
 </p>
