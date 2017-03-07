@@ -19,4 +19,8 @@ export class DayComponent {
   editApp(appointment:Appointment, index: number){
     this.router.navigate([`/add-appointment/${index}`]);
   }
+
+  loadList(dateString: string){
+    this.router.navigate([`/list/${dateString}`]);
+  }
 }

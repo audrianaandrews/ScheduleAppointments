@@ -1,1 +1,16 @@
+a{
+  width:calc(100% /7);
+  height:50px;
+  float:left;
+  border:1px solid #CCC;
+  padding:5px;
+}
 
+.currentMonthDay{
+  font-weight: bold;
+  background-color:#eee;
+}
+
+.selectedDay{
+  background-color:green;
+}

@@ -1,7 +1,11 @@
 <div class="row">
-  <h2>Current Appointments</h2>
-  <app-appointment *ngFor="let appointment of appointments"
-  [appointment]="appointment"
-  [appointmentId]="i"
-  (editAppClicked)="editApp($event, appointment.index)"></app-appointment>
+  <div class="col-sm-12">
+    <h2>{{title}} Appointments</h2>
+    <app-appointment *ngFor="let appointment of appointments"
+    [appointment]="appointment"
+    [appointmentId]="i"
+    (editAppClicked)="editApp($event, appointment.index)"></app-appointment>
+  </div>
+  <a [routerLink]="['add-appointment']">Add appointment</a>
+  <router-outlet></router-outlet>
 </div>

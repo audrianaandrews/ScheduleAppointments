@@ -1,4 +1,4 @@
-<div>
+<a [routerLink]="['list', day.dateISO]"  [ngClass]="{'currentMonthDay': day.inCurrentMonth, 'day':true }" routerLinkActive="selectedDay">
   <p>{{day.dayNumber}}</p>
-  <app-appointment *ngFor="let app of day.appointments" [appointment]="app" [appointmentId]="i" (editAppClicked)="editApp($event, app.index)"></app-appointment>
-</div>
+  <p [style.display]="day.hasApps?'inherit':'none'" class="glyphicon glyphicon-pushpin"></p>
+</a>

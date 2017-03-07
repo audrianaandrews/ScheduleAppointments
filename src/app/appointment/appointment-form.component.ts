@@ -21,6 +21,11 @@ export class AppointmentFormComponent implements OnInit, OnDestroy{
   private appointmentIndex: number;
   private isNew = true;
   private subscription: Subscription;
+  private appointmentName = '';
+  private appointmentDate = '';
+  private appointmentTime = '';
+  private appointmentAmpm = 'am';
+  private routeLink = this.route;
   ampm = ["am", "pm"];
 
   constructor(private appointmentService: AppointmentService,
@@ -30,12 +35,31 @@ export class AppointmentFormComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(){
-    this.subscription = this.route.params.subscribe(
+    this.subscription = this.route.parent.params.subscribe(
+      (params: any) => {
+        if(params.hasOwnProperty('id')){
+          console.log(this.route);
+          if(params['id'].search('-') != -1){
+            this.appointmentDate = params['id'];
+          }
+          this.buildForm();
+        }
+      }
+    );
+
+      this.subscription = this.route.params.subscribe(
       //plus converts it to a number
       (params: any) => {
         if(params.hasOwnProperty('id')){
-          this.isNew = false;
-          this.appointmentIndex = +params['id'];
+          console.log(this.route);
+          if(params['id'].search('-') != -1){
+            this.appointmentDate = params['id'];
+          }
+          else{
+            this.appointmentIndex = +params['id'];
+            this.isNew = false;
+          }
+
           this.appointment = this.appointmentService.getAppointment(this.appointmentIndex);
         } else{
           this.isNew = true;
@@ -51,22 +75,19 @@ export class AppointmentFormComponent implements OnInit, OnDestroy{
   }
 
   buildForm(){
-    let appointmentName = '';
-    let appointmentDate = '';
-    let appointmentTime = '';
-    let appointmentAmpm = 'am';
+
 
     if(!this.isNew){
-      appointmentName = this.appointment.name;
-      appointmentDate = this.appointment.date.toISOString().split('T')[0];
-      appointmentTime = this.appointment.time;
-      appointmentAmpm = this.appointment.ampm;
+      this.appointmentName = this.appointment.name;
+      this.appointmentDate = this.appointment.date.toISOString().split('T')[0];
+      this.appointmentTime = this.appointment.time;
+      this.appointmentAmpm = this.appointment.ampm;
     }
     this.appointmentForm = this.formBuilder.group({
-      'appointmentName': [appointmentName, Validators.required],
-      'date': [appointmentDate, Validators.required],
-      'time': [appointmentTime, [Validators.required, Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")]],
-      'ampm': [appointmentAmpm, Validators.required]
+      'appointmentName': [this.appointmentName, Validators.required],
+      'date': [this.appointmentDate, Validators.required],
+      'time': [this.appointmentTime, [Validators.required, Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")]],
+      'ampm': [this.appointmentAmpm, Validators.required]
     });
   }
 
@@ -92,6 +113,13 @@ export class AppointmentFormComponent implements OnInit, OnDestroy{
 
   onCancel(){
       this.navigateBack();
+  }
+
+  onDelete(){
+    if(!this.isNew){
+      this.appointmentService.deleteAppointment(this.appointment);
+      this.navigateBack();
+    }
   }
 
   private navigateBack() {

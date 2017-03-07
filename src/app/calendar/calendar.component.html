@@ -1,3 +1,4 @@
+<div class="container">
 <div class="row">
   <div class="col-xs-12 text-center" (click)="changeYear()">
     <h2>{{year}}</h2>
@@ -11,20 +12,15 @@
   </div>
 </div>
 <div class="row">
-  <div class="text-center col-xs-12">
-    <button type="button" (click)="backToCurrent()">Back to current month</button>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-1">
+  <div class="col-xs-2">
     <button type="button" class="btn btn-default pull-left" (click)="getMonthText(-1)" tabindex="-1">
       <i class="fa fa-chevron-left "></i>
     </button>
   </div>
-  <div class="col-xs-10 text-center">
+  <div class="col-xs-8 text-center">
     <h1>{{month}}</h1>
   </div>
-  <div class="col-xs-1">
+  <div class="col-xs-2">
     <button type="button" class="btn btn-default pull-right" (click)="getMonthText(1)" tabindex="-1">
       <i class="fa fa-chevron-right"></i>
     </button>
@@ -39,6 +35,12 @@
 </div>
 <div class="row">
   <div class="col-xs-12 text-left">
-  <day *ngFor="let day of days"  [ngClass]="{'currentMonthDay': day.inCurrentMonth, 'day':true }" [day]="day"></day>
+  <day *ngFor="let day of days" [day]="day"></day>
+</div>
+</div>
+<div class="row">
+  <div class="text-center col-xs-12">
+    <button type="button" (click)="backToCurrent()">Current Date</button>
+  </div>
 </div>
 </div>

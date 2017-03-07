@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angu
 import {Appointment} from '../appointment/appointment';
 import {AppointmentService} from '../appointment/appointment.service';
 import {Day} from '../day/day';
+import { Router } from '@angular/router';
 
 import {Subscription} from 'rxjs/Subscription';
 
@@ -28,9 +29,11 @@ export class CalendarComponent implements OnInit, OnDestroy{
   public currentMonthsApp: Appointment[] = [];
   public nextMonthsApp: Appointment[] = [];
   public currentDaysApp: Appointment[] = [];
+  public hasApps: boolean = false;
 
   subscription:Subscription;
-  constructor(private appointmentService: AppointmentService) {
+  constructor(private appointmentService: AppointmentService,
+  private router: Router) {
 		this.days = [];
 	}
 
@@ -76,18 +79,19 @@ export class CalendarComponent implements OnInit, OnDestroy{
       let previousMonth: number;
       let previousYear: number;
       if(this.currentMonth == 0){
-        let previousMonth = 11;
-        let previousYear = this.year-1;
+        previousMonth = 11;
+        previousYear = this.year-1;
         this.prevMonthsApp = this.appointmentService.getAppointmentsByMonth(previousYear, this.months[previousMonth]);
       }
       else{
-        let previousMonth = this.currentMonth-1;
-        let previousYear = this.year;
+        previousMonth = this.currentMonth-1;
+        previousYear = this.year;
         this.prevMonthsApp = this.appointmentService.getAppointmentsByMonth(previousYear, this.months[previousMonth]);
       }
 
       for(var x=numExtra; x >= 0; x--){
         var cDayLast = numDaysLast - x;
+
         currentDay = new Date(previousYear, previousMonth, cDayLast);
         currentDayNum = currentDay.getDay();
 
@@ -99,8 +103,12 @@ export class CalendarComponent implements OnInit, OnDestroy{
             this.currentDaysApp.push(this.prevMonthsApp[app]);
           }
         }
-        this.days.push(new Day(cDayLast, false, this.currentDaysApp));
+        if(this.currentDaysApp.length != 0){
+          this.hasApps = true;
+        }
+        this.days.push(new Day(currentDay, cDayLast, false, this.currentDaysApp, this.hasApps));
         this.currentDaysApp = [];
+        this.hasApps = false;
       }
     }
 
@@ -119,8 +127,12 @@ export class CalendarComponent implements OnInit, OnDestroy{
           this.currentDaysApp.push(this.currentMonthsApp[app]);
         }
       }
-      this.days.push(new Day(d, true, this.currentDaysApp));
+      if(this.currentDaysApp.length != 0){
+        this.hasApps = true;
+      }
+      this.days.push(new Day(currentDay, d, true, this.currentDaysApp, this.hasApps));
       this.currentDaysApp = [];
+      this.hasApps = false;
     }
 
     //get first days of next month
@@ -131,13 +143,13 @@ export class CalendarComponent implements OnInit, OnDestroy{
     let nextYear: number;
 
     if(this.currentMonth == 11){
-      let nextMonth = 0;
-      let nextYear= this.year;
+      nextMonth = 0;
+      nextYear= this.year;
       this.nextMonthsApp = this.appointmentService.getAppointmentsByMonth(nextYear, this.months[nextMonth]);
     }
     else{
-      let nextMonth = this.currentMonth+1;
-      let nextYear= this.year;
+      nextMonth = this.currentMonth+1;
+      nextYear= this.year;
       this.nextMonthsApp = this.appointmentService.getAppointmentsByMonth(nextYear, this.months[nextMonth]);
     }
 
@@ -153,8 +165,12 @@ export class CalendarComponent implements OnInit, OnDestroy{
           this.currentDaysApp.push(this.nextMonthsApp[app]);
         }
       }
-      this.days.push(new Day(count, false, this.currentDaysApp));
+      if(this.currentDaysApp.length != 0){
+        this.hasApps = true;
+      }
+      this.days.push(new Day(currentDay,count, false, this.currentDaysApp, this.hasApps));
       this.currentDaysApp = [];
+      this.hasApps = false;
       count++;
     }
   }
@@ -168,11 +184,17 @@ export class CalendarComponent implements OnInit, OnDestroy{
 
   backToCurrent(){
     var currentDate = new Date();
+    let dayForLink = currentDate.getDate();
     this.currentMonth = currentDate.getMonth();
     this.month = this.months[this.currentMonth];
     this.year = currentDate.getFullYear();
+
+    let dateForLink = new Date(this.year, currentDate.getMonth(), dayForLink);
+    var currentDateId = dateForLink.toISOString().split('T')[0];
     this.generateMonth();
     this.generateYears(this.year);
+
+    this.router.navigate([`/list/${currentDateId}`]);
   }
 
   ngOnInit() {

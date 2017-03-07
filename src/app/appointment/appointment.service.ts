@@ -42,13 +42,21 @@ export class AppointmentService {
   getAppointmentsByMonth(year:number, month: string){
     let thisMonthsApp: Appointment[] = [];
     for (let a=0; a < this.appointments.length; a++){
-      if(this.appointments[a].year == year){
-        if(this.appointments[a].month == month){
+      if(this.appointments[a].year == year && this.appointments[a].month == month){
           thisMonthsApp.push(this.appointments[a]);
-        }
       }
     }
     return thisMonthsApp;
+  }
+
+  getAppointmentsByDay(year:number, month: number, day: number){
+    let thisDaysApp: Appointment[] = [];
+    for (let a=0; a < this.appointments.length; a++){
+      if(this.appointments[a].year == year && this.appointments[a].date.getMonth() == month && this.appointments[a].dayNumber == day){
+          thisDaysApp.push(this.appointments[a]);
+      }
+    }
+    return thisDaysApp;
   }
 
 }

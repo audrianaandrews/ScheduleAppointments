@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Input,Output, EventEmitter } from '@angul
 import { Appointment } from './appointment';
 import { AppointmentComponent } from './appointment.component';
 import { AppointmentService } from './appointment.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Rx';
 
@@ -13,22 +13,42 @@ import {Observable} from 'rxjs/Rx';
 })
 export class AppointmentListComponent implements OnInit, OnDestroy {
   appointments: Appointment[] = [];
-
+  private fullDate: string;
+  public title: string = "All";
+  public months: Array<string> = ["January","February","March","April","May", "June","July","August","September","October","November", "December"];
   subscription:Subscription;
+  subscriptionApp:Subscription;
 
   constructor(private appointmentService: AppointmentService,
-  private router: Router) {
+  private router: Router,
+  private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.appointments = this.appointmentService.getAppointments();
-    this.subscription = this.appointmentService.appointmentsChanged$.subscribe(
+    this.subscription = this.route.params.subscribe(
+      //plus converts it to a number
+      (params: any) => {
+        if(params.hasOwnProperty('id')){
+          this.fullDate = params['id'];
+
+          let dateArray = this.fullDate.split("-");
+
+          this.appointments = this.appointmentService.getAppointmentsByDay(+dateArray[0], +dateArray[1]-1, +dateArray[2]);
+          this.title = this.months[+dateArray[1]-1]  + " " + dateArray[2] +", "+dateArray[0];
+        } else{
+          this.appointments = this.appointmentService.getAppointments();
+        }
+      }
+    );
+
+    this.subscriptionApp = this.appointmentService.appointmentsChanged$.subscribe(
       appointments => (this.appointments = appointments)
     );
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.subscriptionApp.unsubscribe();
   }
 
   editApp(appointment:Appointment, index: number){
