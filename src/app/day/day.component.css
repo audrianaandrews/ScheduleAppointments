@@ -2,15 +2,26 @@ a{
   width:calc(100% /7);
   height:50px;
   float:left;
-  border:1px solid #CCC;
+  border:1px solid #091c27;
   padding:5px;
+  color:#2a5c61;
+  background-color:#FFF;
+}
+
+a{
+  text-decoration: none;
+}
+
+p{
+  margin-bottom: 0;
 }
 
 .currentMonthDay{
   font-weight: bold;
-  background-color:#eee;
+  background-color:#d4d4d4;
 }
 
 .selectedDay{
-  background-color:green;
+  background-color:#2a5c61;
+  color:#FFF;
 }

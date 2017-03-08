@@ -1,14 +1,14 @@
 <div class="container">
 <div class="row">
-  <div class="col-xs-12 text-center" (click)="changeYear()">
-    <h2>{{year}}</h2>
+  <div class="col-xs-12 text-center" (click)="changeYear()" style="cursor:pointer;">
+    <h3>{{year}}</h3>
     <i class="glyphicon glyphicon-menu-up" [style.display]="yearsNotShowing?'none':'inherit'"></i>
     <i class="glyphicon glyphicon-menu-down" [style.display]="yearsNotShowing?'inherit':'none'"></i>
   </div>
 </div>
 <div class="row" [style.display]="yearsNotShowing?'none':'inherit'">
-  <div *ngFor="let y of years"  [ngClass]="'text-center col-xs-1'" (click)="getYear(y)">
-    <button type="button" >{{y}}</button>
+  <div *ngFor="let y of years"  [ngClass]="'text-center col-xs-2'" (click)="getYear(y)">
+    <button type="button" (click)="changeYear()">{{y}}</button>
   </div>
 </div>
 <div class="row">
@@ -18,7 +18,7 @@
     </button>
   </div>
   <div class="col-xs-8 text-center">
-    <h1>{{month}}</h1>
+    <h2>{{month}}</h2>
   </div>
   <div class="col-xs-2">
     <button type="button" class="btn btn-default pull-right" (click)="getMonthText(1)" tabindex="-1">
@@ -40,7 +40,7 @@
 </div>
 <div class="row">
   <div class="text-center col-xs-12">
-    <button type="button" (click)="backToCurrent()">Current Date</button>
+    <button type="button" (click)="backToCurrent()" class="btn btn-default">Current Date</button>
   </div>
 </div>
 </div>

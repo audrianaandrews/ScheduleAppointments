@@ -1,21 +1,21 @@
-<div class="container">
+<div class="container header">
 <div class="row">
-  <div class="col-xs-6">
-    <h1>{{title}}</h1>
+  <div class="col-xs-12">
+    <h1 clss="text-center">{{title}} <a [routerLink]="['list']" class="btn btn-primary">All Appointments</a>
+    <a [routerLink]="['add-appointment']" class="btn btn-primary">Add Appointment</a></h1>
   </div>
-  <div class="col-xs-6">
-    <a [routerLink]="['list']">All Appointments</a>
-    <a [routerLink]="['add-appointment']">Add Appointment</a>
+  <div class="col-xs-12">
+
   </div>
 </div>
 </div>
 
 <div class="container">
 <div class="row">
-  <div class="col-xs-12 col-lg-8 text-center">
+  <div class="col-xs-12 col-lg-7 text-center">
     <calendar></calendar>
   </div>
-  <div class="col-xs-12  col-lg-4 text-center">
+  <div class="col-xs-12  col-lg-5 text-center">
     <router-outlet></router-outlet>
   </div>
 </div>

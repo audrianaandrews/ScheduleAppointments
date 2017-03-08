@@ -1,4 +1,4 @@
 <a [routerLink]="['list', day.dateISO]"  [ngClass]="{'currentMonthDay': day.inCurrentMonth, 'day':true }" routerLinkActive="selectedDay">
   <p>{{day.dayNumber}}</p>
-  <p [style.display]="day.hasApps?'inherit':'none'" class="glyphicon glyphicon-pushpin"></p>
+  <p [style.display]="day.hasApps?'inherit':'none'" class="glyphicon glyphicon-pushpin text-center"></p>
 </a>

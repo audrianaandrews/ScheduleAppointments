@@ -27,6 +27,7 @@ export class AppointmentFormComponent implements OnInit, OnDestroy{
   private appointmentAmpm = 'am';
   private routeLink = this.route;
   ampm = ["am", "pm"];
+  title = "Add";
 
   constructor(private appointmentService: AppointmentService,
               private formBuilder: FormBuilder,
@@ -52,13 +53,9 @@ export class AppointmentFormComponent implements OnInit, OnDestroy{
       (params: any) => {
         if(params.hasOwnProperty('id')){
           console.log(this.route);
-          if(params['id'].search('-') != -1){
-            this.appointmentDate = params['id'];
-          }
-          else{
             this.appointmentIndex = +params['id'];
             this.isNew = false;
-          }
+            this.title = "Edit";
 
           this.appointment = this.appointmentService.getAppointment(this.appointmentIndex);
         } else{
@@ -108,6 +105,7 @@ export class AppointmentFormComponent implements OnInit, OnDestroy{
     else{
       this.appointmentService.editAppointment(new Appointment(date, appointmentName, time, ampm, this.appointmentIndex), this.appointmentIndex);
     }
+
     this.navigateBack();
   }
 
@@ -123,7 +121,7 @@ export class AppointmentFormComponent implements OnInit, OnDestroy{
   }
 
   private navigateBack() {
-    this.router.navigate(['../']);
+    this.router.navigate([`/list/${this.appointmentDate}`]);
   }
 
 }

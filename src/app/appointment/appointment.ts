@@ -8,6 +8,7 @@ export class Appointment {
 	public months: Array<string> = ["January","February","March","April","May", "June","July","August","September","October","November", "December"];
 	public index: number;
 	public date: Date;
+	public fullList: boolean = true;
 
 	constructor(date: Date, name, time, ampm, index) {
 		this.date = date;

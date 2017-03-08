@@ -1,11 +1,11 @@
-<div class="row">
+<div class="row appointment-list">
   <div class="col-sm-12">
-    <h2>{{title}} Appointments</h2>
+    <h3>{{title}} Appointments</h3>
     <app-appointment *ngFor="let appointment of appointments"
     [appointment]="appointment"
     [appointmentId]="i"
     (editAppClicked)="editApp($event, appointment.index)"></app-appointment>
   </div>
-  <a [routerLink]="['add-appointment']">Add appointment</a>
+  <a [routerLink]="['add-appointment']" class="btn btn-default">Add appointment</a>
   <router-outlet></router-outlet>
 </div>

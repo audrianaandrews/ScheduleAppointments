@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+  color: #091c27;
+  padding-bottom:30px;
+}
+
+h3{
+  margin-bottom: 0;
+}
+
+*:active, *:focus{
+  outline:none;
+}

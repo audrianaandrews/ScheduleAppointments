@@ -25,6 +25,10 @@ export class AppointmentListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.subscriptionApp = this.appointmentService.appointmentsChanged$.subscribe(
+      appointments => (this.appointments = appointments)
+    );
+
     this.subscription = this.route.params.subscribe(
       //plus converts it to a number
       (params: any) => {
@@ -34,16 +38,21 @@ export class AppointmentListComponent implements OnInit, OnDestroy {
           let dateArray = this.fullDate.split("-");
 
           this.appointments = this.appointmentService.getAppointmentsByDay(+dateArray[0], +dateArray[1]-1, +dateArray[2]);
+          for (let app = 0; app < this.appointments.length; app++){
+            this.appointments[app].fullList = false;
+          }
+
           this.title = this.months[+dateArray[1]-1]  + " " + dateArray[2] +", "+dateArray[0];
         } else{
           this.appointments = this.appointmentService.getAppointments();
+          for (let app = 0; app < this.appointments.length; app++){
+            this.appointments[app].fullList = true;
+          }
         }
       }
     );
 
-    this.subscriptionApp = this.appointmentService.appointmentsChanged$.subscribe(
-      appointments => (this.appointments = appointments)
-    );
+
   }
 
   ngOnDestroy() {

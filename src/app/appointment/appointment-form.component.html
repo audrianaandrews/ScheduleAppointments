@@ -1,4 +1,7 @@
-<div class="row">
+<div class="appointment-form">
+  <div class="col-xs-12">
+    <h3>{{title}} an appointment</h3>
+  </div>
   <div class="col-xs-12">
     <form class="form" [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
@@ -8,7 +11,7 @@
     id="txtName"
     formControlName="appointmentName">
     </label>
-  </div>
+  </div><br>
   <div class="form-group">
     <label for="date">Date:
     <input type="date"
@@ -16,7 +19,7 @@
     id="date"
     formControlName="date">
     </label>
-  </div>
+  </div><br>
   <div class="form-group">
     <label for="txtName">Time:
     <input type="text"
@@ -28,15 +31,17 @@
           <input type="radio"
             formControlName="ampm"
             [value]="ap">
+            <span>
             {{ap}}
+          </span>
         </label>
     </div>
     </label>
-  </div>
-  <button type="submit" class="btn btn-default" [disabled]="!appointmentForm.valid">Add Appointment</button>
-  <button type="submit" class="btn btn-default" (click)="onCancel()">Cancel</button>
+  </div><br>
+  <button type="submit" class="btn btn-success" [disabled]="!appointmentForm.valid">{{title}} Appointment</button>
+  <button type="submit" class="btn btn-warning" (click)="onCancel()">Cancel</button>
   <br>
-  <button type="submit" class="btn btn-default" (click)="onDelete()">Delete Appointment</button>
+  <button type="submit" class="btn btn-danger" (click)="onDelete()">Delete Appointment</button>
 </form>
   </div>
 </div>

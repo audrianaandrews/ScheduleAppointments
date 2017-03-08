@@ -1,0 +1,22 @@
+.btn.btn-default{
+  background-color: #5dd39e;
+  padding: 10px 20px;
+  color: #091c27;
+  margin: 20px 0;
+  font-weight: bold;
+  border: none;
+}
+
+.btn.btn-default:hover{
+  background-color: #bce784;
+}
+
+.appointment-list{
+  background-color:#2a5c61;
+  color:#FFF;
+  margin-top: 30px;
+}
+
+h3{
+  margin-bottom: 20px;
+}
