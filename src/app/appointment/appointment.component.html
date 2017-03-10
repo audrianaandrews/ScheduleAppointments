@@ -1,4 +1,4 @@
 <p [ngClass]="appointmentWrapper">{{appointment.name}} <span [style.display]="appointment.fullList?'inline':'none'">on {{appointment.month}} {{appointment.dayNumber}}, {{appointment.year}}</span> at {{appointment.time}}{{appointment.ampm}}
 <button (click)="editClicked($event)" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></button>
-<button (click)="deleteClicked(appointment)" class="btn btn-danger">X</button>
+<button (click)="deleteClicked($event)" class="btn btn-danger">X</button>
 </p>

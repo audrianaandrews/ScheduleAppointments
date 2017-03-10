@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "staging": "schedule-appointments",
+    "default": "schedule-appointments"
+  }
+}

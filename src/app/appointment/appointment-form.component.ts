@@ -15,11 +15,12 @@ import { FormGroup, FormControl, FormBuilder, Validators, FormArray  } from '@an
 })
 export class AppointmentFormComponent implements OnInit, OnDestroy{
   //@Input() appointment: Appointment;
-  apointments: Appointment[];
+  appointments: Appointment[];
   appointmentForm: FormGroup;
   private appointment: Appointment;
   private appointmentIndex: number;
   private isNew = true;
+  private innerRoute = false;
   private subscription: Subscription;
   private appointmentName = '';
   private appointmentDate = '';
@@ -39,9 +40,10 @@ export class AppointmentFormComponent implements OnInit, OnDestroy{
     this.subscription = this.route.parent.params.subscribe(
       (params: any) => {
         if(params.hasOwnProperty('id')){
-          console.log(this.route);
           if(params['id'].search('-') != -1){
             this.appointmentDate = params['id'];
+            this.innerRoute = true;
+            this.title = "Add";
           }
           this.buildForm();
         }
@@ -52,10 +54,10 @@ export class AppointmentFormComponent implements OnInit, OnDestroy{
       //plus converts it to a number
       (params: any) => {
         if(params.hasOwnProperty('id')){
-          console.log(this.route);
             this.appointmentIndex = +params['id'];
             this.isNew = false;
             this.title = "Edit";
+            this.innerRoute = false;
 
           this.appointment = this.appointmentService.getAppointment(this.appointmentIndex);
         } else{
@@ -72,11 +74,28 @@ export class AppointmentFormComponent implements OnInit, OnDestroy{
   }
 
   buildForm(){
-
-
     if(!this.isNew){
       this.appointmentName = this.appointment.name;
-      this.appointmentDate = this.appointment.date.toISOString().split('T')[0];
+      let dateArray = this.appointment.date.toISOString().split('T')[0].split("-");
+      let currentDate = new Date().toISOString().split('T')[0];
+      if(this.isNew == false){
+          if(this.appointment.date.toISOString().split('T')[0] == currentDate)
+            if((+dateArray[2]-1).toString().length == 1 )
+              this.appointmentDate = dateArray[0] + "-" + dateArray[1] + "-0" +(+dateArray[2]-1);
+            else
+              this.appointmentDate = dateArray[0] + "-" + dateArray[1] + "-" +(+dateArray[2]-1);
+          else
+            this.appointmentDate = dateArray[0] + "-" + dateArray[1] + "-" +dateArray[2];
+
+          console.log(this.appointmentDate);
+      }
+      else{
+        if((+dateArray[2]-1).toString().length == 1 )
+          this.appointmentDate = dateArray[0] + "-" + dateArray[1] + "-0" +(+dateArray[2]-1);
+        else
+          this.appointmentDate = dateArray[0] + "-" + dateArray[1] + "-" +(+dateArray[2]-1);
+      }
+
       this.appointmentTime = this.appointment.time;
       this.appointmentAmpm = this.appointment.ampm;
     }
@@ -116,12 +135,25 @@ export class AppointmentFormComponent implements OnInit, OnDestroy{
   onDelete(){
     if(!this.isNew){
       this.appointmentService.deleteAppointment(this.appointment);
-      this.navigateBack();
     }
+    this.navigateBack();
   }
 
   private navigateBack() {
-    this.router.navigate([`/list/${this.appointmentDate}`]);
+    if(!this.isNew){
+      /*let dateArray = this.appointmentDate.split("-");
+      let routeId = dateArray[0] + "-" + (+dateArray[1]-1) + "-" +dateArray[2];*/
+      this.router.navigate([`/list/${this.appointmentDate}`]);
+    }
+    else if(this.innerRoute){
+      this.router.navigate([`/list/${this.appointmentDate}`]);
+      let dateArray = this.appointmentDate.split("-");
+      this.appointments = this.appointmentService.getAppointmentsByDay(+dateArray[0], +dateArray[1]-1, +dateArray[2]);
+
+    }
+    else{
+      this.router.navigate([`/list`]);
+    }
   }
 
 }

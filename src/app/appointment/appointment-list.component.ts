@@ -51,8 +51,6 @@ export class AppointmentListComponent implements OnInit, OnDestroy {
         }
       }
     );
-
-
   }
 
   ngOnDestroy() {
@@ -62,5 +60,11 @@ export class AppointmentListComponent implements OnInit, OnDestroy {
 
   editApp(appointment:Appointment, index: number){
     this.router.navigate([`/add-appointment/${index}`]);
+  }
+  deleteApp(appointment:Appointment){
+    this.appointmentService.deleteAppointment(appointment);
+    let dateArray = this.fullDate.split("-");
+    this.appointments = this.appointmentService.getAppointmentsByDay(+dateArray[0], +dateArray[1]-1, +dateArray[2]);
+    this.router.navigate([`/list/${this.fullDate}`]);
   }
 }
