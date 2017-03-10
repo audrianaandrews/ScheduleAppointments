@@ -78,3 +78,8 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 >>>>>>> 340ceeae1c71ff25fedeb5d22b2a765ad8deebb5
+
+#firebase
+database.rules.json
+firebase.json
+.firebasrc
